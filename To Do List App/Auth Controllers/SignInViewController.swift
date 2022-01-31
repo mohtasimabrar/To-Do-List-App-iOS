@@ -1,3 +1,4 @@
+
 //
 //  SignInViewController.swift
 //  To Do List App
@@ -29,11 +30,14 @@ class SignInViewController: UIViewController {
         }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: {
-            result, error in
+            [weak self] result, error in
             guard error == nil else {
                 print("Failed to sign in")
+                print(error!)
                 return
             }
+            
+            self?.dismiss(animated: true, completion: nil)
             print("Signed In")
         })
     }

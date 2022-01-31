@@ -6,7 +6,7 @@ target 'To Do List App' do
   use_frameworks!
 
   # Pods for To Do List App
-pod 'Firebase/Core'
+
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Database'
