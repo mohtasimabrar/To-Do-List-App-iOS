@@ -14,6 +14,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     
     var ref: DatabaseReference!

@@ -10,5 +10,8 @@ target 'To Do List App' do
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Database'
+pod 'GoogleSignIn'
+pod 'SDWebImage'
+pod 'Firebase/Storage'
 
 end

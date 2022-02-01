@@ -32,12 +32,12 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GxO-GS-MEf">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="50.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EhE-WP-pbp">
                                                 <rect key="frame" x="0.0" y="58.5" width="373" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-D9-0Wf">
                                                 <rect key="frame" x="0.0" y="116.5" width="373" height="50.5"/>
@@ -88,11 +88,18 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FlO-kh-bpS">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="77.5"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yF-Aw-Rvs">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yF-Aw-Rvs" customClass="GIDSIgnInButton" customModule="To_Do_List_App" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="180.5" height="77.5"/>
                                                                 <color key="tintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="gray" title="Google Sign In"/>
+                                                                <buttonConfiguration key="configuration" style="gray" title="Google Sign In">
+                                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="baseBackgroundColor" red="0.91854697470000002" green="0.26110914349999997" blue="0.20878306029999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="googleSignInButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H1l-Pe-GkD"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkV-IY-UWz">
                                                                 <rect key="frame" x="192.5" y="0.0" width="180.5" height="77.5"/>
@@ -175,7 +182,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
@@ -200,36 +207,41 @@
                                 <rect key="frame" x="20.5" y="248" width="373" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slx-PI-4Ng">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="60"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="48"/>
                                         <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SOs-Vb-tXa">
-                                        <rect key="frame" x="0.0" y="120" width="373" height="280"/>
+                                        <rect key="frame" x="0.0" y="80" width="373" height="320"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7V-Rz-BUi">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="49.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="46.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="given-name"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jqa-aA-1wX">
-                                                <rect key="frame" x="0.0" y="57.5" width="373" height="49.5"/>
+                                                <rect key="frame" x="0.0" y="54.5" width="373" height="47"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="family-name"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tsX-EC-Hoc">
-                                                <rect key="frame" x="0.0" y="115" width="373" height="50"/>
+                                                <rect key="frame" x="0.0" y="109.5" width="373" height="46.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n8p-Yi-G8w">
-                                                <rect key="frame" x="0.0" y="173" width="373" height="49.5"/>
+                                                <rect key="frame" x="0.0" y="164" width="373" height="46.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b6C-yk-BZj">
+                                                <rect key="frame" x="0.0" y="218.5" width="373" height="47"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoV-87-A2y">
-                                                <rect key="frame" x="0.0" y="230.5" width="373" height="49.5"/>
+                                                <rect key="frame" x="0.0" y="273.5" width="373" height="46.5"/>
                                                 <color key="tintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Register">
@@ -248,7 +260,7 @@
                                 <constraints>
                                     <constraint firstItem="SOs-Vb-tXa" firstAttribute="centerX" secondItem="aLs-7T-wpz" secondAttribute="centerX" id="CbC-dq-kQ8"/>
                                     <constraint firstAttribute="height" constant="400" id="Lxs-wi-2oE"/>
-                                    <constraint firstItem="SOs-Vb-tXa" firstAttribute="height" secondItem="aLs-7T-wpz" secondAttribute="height" multiplier="0.7" id="OU9-td-a1f"/>
+                                    <constraint firstItem="SOs-Vb-tXa" firstAttribute="height" secondItem="aLs-7T-wpz" secondAttribute="height" multiplier="0.8" id="OU9-td-a1f"/>
                                     <constraint firstItem="SOs-Vb-tXa" firstAttribute="width" secondItem="aLs-7T-wpz" secondAttribute="width" id="ZNq-0H-Lbe"/>
                                 </constraints>
                             </stackView>
@@ -263,6 +275,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="7oF-yz-pgy"/>
                     <connections>
+                        <outlet property="confirmPasswordTextField" destination="b6C-yk-BZj" id="iij-Ch-6od"/>
                         <outlet property="emailField" destination="tsX-EC-Hoc" id="YEu-Qf-zDQ"/>
                         <outlet property="firstNameTextField" destination="t7V-Rz-BUi" id="59m-sR-DmM"/>
                         <outlet property="lastNameTextField" destination="Jqa-aA-1wX" id="af2-M0-pF0"/>
@@ -273,21 +286,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUH-IT-OH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1794" y="96"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ydb-3B-PZv">
-            <objects>
-                <viewController id="iL8-ns-OZh" customClass="ViewController" customModule="To_Do_List_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nnl-bj-dhO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="1gY-Ju-mH9"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TrG-g9-ymQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2523" y="96"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="K2p-u2-Tgw">
@@ -312,13 +310,20 @@
         <scene sceneID="6i8-Ru-rgB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JMf-lF-vZg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Completed" selectedImage="folder" catalog="system" id="4D1-aC-qXA">
+                    <tabBarItem key="tabBarItem" title="Completed" image="folder.fill" catalog="system" selectedImage="folder.fill" id="4D1-aC-qXA">
                         <color key="badgeColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PXm-zn-3cb">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="PXm-zn-3cb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -336,10 +341,35 @@
                     <view key="view" contentMode="scaleToFill" id="d42-mU-7Oe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUserImage" translatesAutoresizingMaskIntoConstraints="NO" id="BdL-Y9-CRe">
+                                <rect key="frame" x="107" y="268" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="ZJQ-fM-3vN"/>
+                                    <constraint firstAttribute="width" constant="200" id="vAc-BR-FDv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lO4-oy-Kdt">
+                                <rect key="frame" x="135.5" y="514.5" width="143.5" height="33.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="wmM-gk-pfc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BdL-Y9-CRe" firstAttribute="centerY" secondItem="d42-mU-7Oe" secondAttribute="centerY" constant="-80" id="DjC-Jd-bLA"/>
+                            <constraint firstItem="lO4-oy-Kdt" firstAttribute="bottom" secondItem="BdL-Y9-CRe" secondAttribute="bottom" constant="80" id="Gvf-ff-dIt"/>
+                            <constraint firstItem="lO4-oy-Kdt" firstAttribute="centerX" secondItem="d42-mU-7Oe" secondAttribute="centerX" id="fTG-FU-hKw"/>
+                            <constraint firstItem="BdL-Y9-CRe" firstAttribute="centerX" secondItem="d42-mU-7Oe" secondAttribute="centerX" id="mcA-7d-1SL"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WWh-6V-Wjk"/>
+                    <connections>
+                        <outlet property="userImageView" destination="BdL-Y9-CRe" id="IOO-j8-QZG"/>
+                        <outlet property="userNameLabel" destination="lO4-oy-Kdt" id="ep8-jf-PCG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IEq-Cl-hhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -349,14 +379,21 @@
         <scene sceneID="lwM-zc-TkW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U4B-kt-tUf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="To Do" id="4Yv-sc-kUB">
+                    <tabBarItem key="tabBarItem" title="To Do" image="list.bullet.rectangle.fill" catalog="system" id="4Yv-sc-kUB">
                         <color key="badgeColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <imageReference key="selectedImage" image="list.number" catalog="system" symbolScale="default"/>
+                        <imageReference key="selectedImage" image="list.bullet.rectangle.fill" catalog="system"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kSk-5L-feU">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="kSk-5L-feU">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -371,13 +408,20 @@
         <scene sceneID="6w9-1S-h0s">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v1M-Yf-zZh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" selectedImage="person" catalog="system" id="Vuw-Yy-Cop">
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" selectedImage="person.fill" id="Vuw-Yy-Cop">
                         <color key="badgeColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NmC-rY-7hQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="NmC-rY-7hQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -391,9 +435,10 @@
     </scenes>
     <color key="tintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
-        <image name="folder" catalog="system" width="128" height="97"/>
-        <image name="list.number" catalog="system" width="128" height="97"/>
-        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="defaultUserImage" width="1890" height="1890"/>
+        <image name="folder.fill" catalog="system" width="128" height="97"/>
+        <image name="list.bullet.rectangle.fill" catalog="system" width="128" height="93"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
