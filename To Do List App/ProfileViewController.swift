@@ -14,10 +14,12 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userEmailLabel: UILabel!
+    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var signOutButton: UIButton!
     private var authListener: AuthStateDidChangeListenerHandle?
     var ref: DatabaseReference!
     
-    let signOutButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,48 +28,29 @@ class ProfileViewController: UIViewController {
         
         title = "Profile"
         
-        createSignOutButton()
-        fetchUserData()
-        
-        
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: signOutButton)
-        
-        // Do any additional setup after loading the view.
     }
     
-    func fetchUserData() {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let userID = Auth.auth().currentUser?.uid
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { [weak self] snapshot in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let firstName = value?["firstName"] as? String ?? ""
-            let lastName = value?["lastName"] as? String ?? ""
-            let userImageURL = value?["profilePictureURL"] as? String ?? ""
-            
-            print(userImageURL)
-            
-            self?.userNameLabel.text = firstName + " " + lastName
-            self?.userImageView.sd_setImage(with: URL(string: userImageURL), placeholderImage: UIImage(named: "defaultUserImage"), options: .continueInBackground, completed: nil)
-            
-        }) { error in
-            print(error.localizedDescription)
+        authListener = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
+            if user == nil {
+                self?.askUserToLogin()
+            } else {
+                self?.userImageView.makeRounded()
+                self?.fetchUserData()
+            }
         }
+        
     }
     
-    func createSignOutButton() {
-        signOutButton.setTitle("Sign Out", for: .normal)
-        signOutButton.setTitleColor(.white , for: .normal)
-        signOutButton.backgroundColor = UIColor(red: 21/255.0, green: 76/255.0, blue: 121/255.0, alpha: 1)
-        signOutButton.frame = CGRect(x: 15, y: -50, width: 100, height: 30)
-        //signOutButton.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 50, bottom: 10, trailing: 50)
-        signOutButton.layer.cornerRadius = 8
-        signOutButton.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+    @IBAction func editProfileButtonTapped(_ sender: Any) {
+        
     }
     
     
-    @objc func signOut(){
+    @IBAction func signOutButtonTapped(_ sender: Any) {
         do {
             try FirebaseAuth.Auth.auth().signOut()
             self.userImageView.image = UIImage(named: "defaultUserImage")
@@ -79,21 +62,31 @@ class ProfileViewController: UIViewController {
         catch {
             print("An Error Occured")
         }
-        
     }
     
-    // Check for auth status some where
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func fetchUserData() {
         
-        authListener = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            if user == nil {
-                self?.askUserToLogin()
-            }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        ref.child("users").child(userID).observeSingleEvent(of: .value, with: { [weak self] snapshot in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let firstName = value?["firstName"] as? String ?? ""
+            let lastName = value?["lastName"] as? String ?? ""
+            let userImageURL = value?["profilePictureURL"] as? String ?? ""
+            let email = value?["email"] as? String ?? "Email Missing"
+                        
+            self?.userNameLabel.text = firstName + " " + lastName
+            self?.userEmailLabel.text = email
+            
+            self?.userImageView.sd_setImage(with: URL(string: userImageURL), placeholderImage: UIImage(named: "defaultUserImage"), options: .continueInBackground, completed: nil)
+            
+        }) { error in
+            print(error.localizedDescription)
         }
+        
     }
-    
-    
+            
     private func askUserToLogin() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "authNav")
@@ -107,4 +100,17 @@ class ProfileViewController: UIViewController {
             Auth.auth().removeStateDidChangeListener(authListener!)
         }
     }
+}
+
+
+extension UIImageView {
+
+    func makeRounded() {
+        self.layer.borderWidth = 4
+        self.layer.masksToBounds = false
+        self.layer.borderColor = CGColor(red: 21/255.0, green: 76/255.0, blue: 121/255.0, alpha: 1)
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
+    }
+    
 }

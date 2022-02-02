@@ -23,8 +23,6 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         
         ref = Database.database(url: "https://to-do-list-app-f7a81-default-rtdb.asia-southeast1.firebasedatabase.app/").reference()
-        
-        signInButton.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
     }
     
     @IBAction func googleSignInButtonTapped(_ sender: Any) {
@@ -47,12 +45,13 @@ class SignInViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
             
-            Auth.auth().signIn(with: credential) { [weak self] result, error in
+            FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] result, error in
                 if error != nil {
                     return
                 }
                 guard let user = user else { return }
-                                
+                
+                let emailAddress = user.profile?.email
                 let givenName = user.profile?.givenName
                 let familyName = user.profile?.familyName
                 let profilePicUrl = user.profile?.imageURL(withDimension: 320)
@@ -63,9 +62,14 @@ class SignInViewController: UIViewController {
                 
                 guard let userID = Auth.auth().currentUser?.uid else { return }
                 
-                self?.ref.child("users").child(userID).child("firstName").setValue(givenName)
-                self?.ref.child("users").child(userID).child("lastName").setValue(familyName)
-                self?.ref.child("users").child(userID).child("profilePicture").setValue(profilePicUrl)
+                let data: [String:String] = [
+                    "email": emailAddress!,
+                    "firstName": givenName!,
+                    "lastName":familyName!,
+                    "profilePictureURL":profilePicUrl
+                ]
+                
+                self?.ref.child("users").child(userID).setValue(data)
                 
                 self?.dismiss(animated: true, completion: nil)
                 print(result!)
@@ -73,7 +77,7 @@ class SignInViewController: UIViewController {
         }
     }
     
-    @objc func signInButtonDidTap() {
+    @IBAction func signInButtonTapped(_ sender: Any) {
         guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else {
                   print("Field Empty")
@@ -92,4 +96,5 @@ class SignInViewController: UIViewController {
             print("Signed In")
         })
     }
+    
 }
