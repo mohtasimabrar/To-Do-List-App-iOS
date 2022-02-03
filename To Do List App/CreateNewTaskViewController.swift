@@ -47,6 +47,9 @@ class CreateNewTaskViewController: UIViewController {
         
         print(data)
         self.ref.child("tasks").child(userID).childByAutoId().setValue(data)
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
         
     }
 }

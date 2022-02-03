@@ -20,6 +20,8 @@
 		1C81264827A80812008EFB68 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81264727A80812008EFB68 /* HomeViewController.swift */; };
 		1C81264A27A8096A008EFB68 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81264927A8096A008EFB68 /* ProfileViewController.swift */; };
 		1C81264C27A809BE008EFB68 /* CompletedTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81264B27A809BE008EFB68 /* CompletedTasksViewController.swift */; };
+		1C972E8D27ABBC54003BEA4E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C972E8C27ABBC54003BEA4E /* Task.swift */; };
+		1C972E9027ABC28D003BEA4E /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C972E8F27ABC28D003BEA4E /* TasksTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		1C81264727A80812008EFB68 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1C81264927A8096A008EFB68 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1C81264B27A809BE008EFB68 /* CompletedTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTasksViewController.swift; sourceTree = "<group>"; };
+		1C972E8C27ABBC54003BEA4E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		1C972E8F27ABC28D003BEA4E /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		21C4764E105E317B6E784762 /* Pods-To Do List App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To Do List App.release.xcconfig"; path = "Target Support Files/Pods-To Do List App/Pods-To Do List App.release.xcconfig"; sourceTree = "<group>"; };
 		542820B0881EE3A2E2901F89 /* Pods_To_Do_List_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_To_Do_List_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF3867235E0C98D8C745CF8 /* Pods-To Do List App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To Do List App.debug.xcconfig"; path = "Target Support Files/Pods-To Do List App/Pods-To Do List App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 		1C3582C627A12E13009CD088 /* To Do List App */ = {
 			isa = PBXGroup;
 			children = (
+				1C972E8E27ABC25D003BEA4E /* Cells */,
+				1C972E8927ABBC27003BEA4E /* Models */,
 				1C5C381527A1821B00B23338 /* Auth Controllers */,
 				1C3582C727A12E13009CD088 /* AppDelegate.swift */,
 				1C3582C927A12E13009CD088 /* SceneDelegate.swift */,
@@ -98,6 +104,22 @@
 				1C5C381827A1825500B23338 /* SignUpViewController.swift */,
 			);
 			path = "Auth Controllers";
+			sourceTree = "<group>";
+		};
+		1C972E8927ABBC27003BEA4E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1C972E8C27ABBC54003BEA4E /* Task.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1C972E8E27ABC25D003BEA4E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1C972E8F27ABC28D003BEA4E /* TasksTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		1D91976165A2A5C847E00ABE /* Pods */ = {
@@ -239,7 +261,9 @@
 				1C3582C827A12E13009CD088 /* AppDelegate.swift in Sources */,
 				1C09073727A96DBA00473C53 /* CreateNewTaskViewController.swift in Sources */,
 				1C3582CA27A12E13009CD088 /* SceneDelegate.swift in Sources */,
+				1C972E9027ABC28D003BEA4E /* TasksTableViewCell.swift in Sources */,
 				1C5C381927A1825500B23338 /* SignUpViewController.swift in Sources */,
+				1C972E8D27ABBC54003BEA4E /* Task.swift in Sources */,
 				1C81264827A80812008EFB68 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
