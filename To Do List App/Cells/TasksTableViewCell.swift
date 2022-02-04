@@ -10,7 +10,6 @@ import UIKit
 class TasksTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var cellImageView: UIImageView!
     
     
     override func awakeFromNib() {
