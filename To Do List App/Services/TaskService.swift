@@ -28,6 +28,21 @@ class TaskService {
         self.ref.child("tasks").child(userID).childByAutoId().setValue(data)
     }
     
+    static func saveTask(id: String, title: String, details: String) {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        let data: [String:String] = [
+            "isDone": "false",
+            "task": details,
+            "title": title,
+            "time": Date.getCurrentTime(),
+            "date": Date.getCurrentDate()
+        ]
+        
+        self.ref.child("tasks").child(userID).child(id).setValue(data)
+    }
+    
     static func deleteTask(id: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         

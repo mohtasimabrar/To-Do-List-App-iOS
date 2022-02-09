@@ -71,7 +71,6 @@ class SignInViewController: UIViewController {
                 
                 self?.ref.child("users").child(userID).setValue(data)
                 
-                self?.dismiss(animated: true, completion: nil)
                 print(result!)
             }
         }
@@ -85,14 +84,12 @@ class SignInViewController: UIViewController {
               }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: {
-            [weak self] result, error in
+            result, error in
             guard error == nil else {
                 print("Failed to sign in")
-                print(error!)
                 return
             }
             
-            self?.dismiss(animated: true, completion: nil)
             print("Signed In")
         })
     }

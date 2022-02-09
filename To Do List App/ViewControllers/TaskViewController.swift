@@ -32,15 +32,31 @@ class TaskViewController: UIViewController {
         let markAsDoneButton = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .done , target: self, action: #selector(markAsDone))
         let deleteTaskButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain , target: self, action: #selector(deleteTask))
         let markAsUndoneButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain , target: self, action: #selector(markAsUndone))
+        let editTaskButton = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain , target: self, action: #selector(editTask))
+        
         if let task = task {
             if (task.isDone.elementsEqual("false")){
-                navigationItem.rightBarButtonItems = [markAsDoneButton, deleteTaskButton]
+                navigationItem.rightBarButtonItems = [markAsDoneButton,editTaskButton, deleteTaskButton]
             } else {
-                navigationItem.rightBarButtonItems = [markAsUndoneButton, deleteTaskButton]
+                navigationItem.rightBarButtonItems = [markAsUndoneButton, editTaskButton, deleteTaskButton]
             }
         }
         
     }
+    
+    
+    @objc func editTask() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "editTask") as? EditTaskViewController {
+            vc.task = self.task
+            navigationController?.present(vc, animated: true, completion: {
+                self.task = vc.task
+                self.viewConfiguration()
+            })
+            //present(vc, animated: true, completion: nil)
+            //navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     @objc func deleteTask() {
         if let task = task {
@@ -52,6 +68,7 @@ class TaskViewController: UIViewController {
         }
     }
     
+    
     @objc func markAsDone() {
         if let task = task {
             TaskService.markTaskAsDone(id: task.id)
@@ -62,6 +79,7 @@ class TaskViewController: UIViewController {
         }
     }
     
+    
     @objc func markAsUndone() {
         if let task = task {
             TaskService.markTaskAsUndone(id: task.id)
@@ -71,6 +89,7 @@ class TaskViewController: UIViewController {
             navController.popViewController(animated: true)
         }
     }
+    
     
     func viewConfiguration() {
         if let task = task {
