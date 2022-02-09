@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var editProfileButton: UIButton!
     @IBOutlet weak var signOutButton: UIButton!
+    var user: UserProfile?
     
     
     override func viewDidLoad() {
@@ -34,7 +35,13 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "editProfileView") as? EditProfileViewController {
+            guard let user = user else {
+                return
+            }
+            vc.user = user
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     
@@ -50,11 +57,13 @@ class ProfileViewController: UIViewController {
            
     }
     
+    
     func fetchUserData() {
 
         UserService.getUserData { [weak self] userProfile in
             guard let weakSelf = self else { return }
             if let userProfile = userProfile {
+                weakSelf.user = userProfile
                 DispatchQueue.main.async {
                     weakSelf.userNameLabel.text = userProfile.firstName + " " + userProfile.lastName
                     weakSelf.userEmailLabel.text = userProfile.email

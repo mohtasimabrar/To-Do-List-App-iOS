@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 
 class TaskService {
-    static var ref = Database.database(url: Constants.dataBastURL).reference()
+    static var ref = Database.database(url: Constants.dataBaseURL).reference()
         
     static func createNewTask(title: String, details: String) {
         
@@ -28,19 +28,19 @@ class TaskService {
         self.ref.child("tasks").child(userID).childByAutoId().setValue(data)
     }
     
-    static func saveTask(id: String, title: String, details: String) {
+    static func saveTask(task: Task) {
         
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         let data: [String:String] = [
-            "isDone": "false",
-            "task": details,
-            "title": title,
-            "time": Date.getCurrentTime(),
-            "date": Date.getCurrentDate()
+            "isDone": task.isDone,
+            "task": task.task,
+            "title": task.title,
+            "time": task.time,
+            "date": task.date
         ]
         
-        self.ref.child("tasks").child(userID).child(id).setValue(data)
+        self.ref.child("tasks").child(userID).child(task.id).setValue(data)
     }
     
     static func deleteTask(id: String) {
@@ -64,7 +64,7 @@ class TaskService {
     static func getUndoneTasks(completionHandler: @escaping ([Task]?)->()) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        self.ref.child("tasks").child(userID).observe(.value, with: { snapshot in
+        self.ref.child("tasks").child(userID).observe(.value , with: { snapshot in
             var tempTasks = [Task]()
             for child in snapshot.children {
                 if let childrenSnapshot = child as? DataSnapshot,

@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol EditTaskDelegate {
+    func didDismissView (task: Task)
+}
+
 class EditTaskViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var detailsTextField: UITextField!
     
     var task:Task?
+    
+    var editTaskDelegate: EditTaskDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +53,13 @@ class EditTaskViewController: UIViewController {
     @IBAction func saveButtonTapped(_ sender: Any) {
         if let titleText = titleTextField.text,
            let detailsText = detailsTextField.text,
-           let taskID = task?.id
+           let task = task
            {
+            let updatedTask = Task(id: task.id, title: titleText, task: detailsText, isDone: "false", time: Date.getCurrentTime(), date: Date.getCurrentDate())
             
-            TaskService.saveTask(id: taskID, title: titleText, details: detailsText)
+            TaskService.saveTask(task: updatedTask)
+            
+            editTaskDelegate.didDismissView(task: updatedTask)
             self.dismiss(animated: true, completion: nil)
         }
         

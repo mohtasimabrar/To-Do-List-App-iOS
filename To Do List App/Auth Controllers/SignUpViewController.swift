@@ -6,9 +6,7 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
-import FirebaseStorage
+
 
 class SignUpViewController: UIViewController {
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -19,18 +17,18 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var uploadPictureButton: UIButton!
+    @IBOutlet weak var firstNameErrorLabel: UILabel!
+    @IBOutlet weak var lastNameErrorLabel: UILabel!
+    @IBOutlet weak var emailErrorLabel: UILabel!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
     var imageData: Data?
-    var profilePictureURL: String?
     
-    var ref: DatabaseReference!
-    
-    let storage = Storage.storage(url:"gs://to-do-list-app-f7a81.appspot.com").reference()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ref = Database.database(url: "https://to-do-list-app-f7a81-default-rtdb.asia-southeast1.firebasedatabase.app/").reference()
+        resetForm()
     }
     
     override func viewWillLayoutSubviews() {
@@ -38,6 +36,120 @@ class SignUpViewController: UIViewController {
         profilePictureImageView.makeUploadPictureRounded()
     }
     
+    func resetForm() {
+        registerButton.isEnabled = false
+            
+        emailErrorLabel.isHidden = false
+        firstNameErrorLabel.isHidden = false
+        lastNameErrorLabel.isHidden = false
+        passwordErrorLabel.isHidden = false
+        confirmPasswordErrorLabel.isHidden = false
+            
+        emailErrorLabel.text = "Required"
+        firstNameErrorLabel.text = "Required"
+        lastNameErrorLabel.text = "Required"
+        passwordErrorLabel.text = "Required"
+        confirmPasswordErrorLabel.text = "Required"
+            
+        firstNameTextField.text = ""
+        lastNameTextField.text = ""
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        confirmPasswordTextField.text = ""
+    }
+    
+    @IBAction func emailChanged(_ sender: Any) {
+        if let email = emailTextField.text
+        {
+            if let errorMessage = ValidationService.invalidEmail(email)
+            {
+                emailErrorLabel.text = errorMessage
+                emailErrorLabel.isHidden = false
+            }
+            else
+            {
+                emailErrorLabel.isHidden = true
+            }
+        }
+        
+        checkForValidForm()
+    }
+    
+    @IBAction func passwordChanged(_ sender: Any) {
+        if let password = passwordTextField.text
+        {
+            if let errorMessage = ValidationService.invalidPassword(password)
+            {
+                passwordErrorLabel.text = errorMessage
+                passwordErrorLabel.isHidden = false
+            }
+            else
+            {
+                passwordErrorLabel.isHidden = true
+            }
+        }
+        
+        checkForValidForm()
+    }
+    
+    @IBAction func confirmPasswordChanged(_ sender: Any) {
+        if let password = passwordTextField.text,
+           let confirmPassword = confirmPasswordTextField.text {
+            if (confirmPassword.elementsEqual(password)) {
+                confirmPasswordErrorLabel.isHidden = true
+            } else {
+                confirmPasswordErrorLabel.text = "Password does not match. Please try again."
+                confirmPasswordErrorLabel.isHidden = false
+            }
+        }
+        
+        
+        checkForValidForm()
+    }
+    
+    
+    @IBAction func firstNameChanged(_ sender: Any) {
+        if let firstName = firstNameTextField.text
+        {
+            if let errorMessage = ValidationService.invalidName(firstName)
+            {
+                firstNameErrorLabel.text = "First " + errorMessage
+                firstNameErrorLabel.isHidden = false
+            }
+            else
+            {
+                firstNameErrorLabel.isHidden = true
+            }
+        }
+        checkForValidForm()
+    }
+    
+    @IBAction func lastNameChanged(_ sender: Any) {
+        if let lastName = lastNameTextField.text
+        {
+            if let errorMessage = ValidationService.invalidName(lastName)
+            {
+                lastNameErrorLabel.text = "Last " + errorMessage
+                lastNameErrorLabel.isHidden = false
+            }
+            else
+            {
+                lastNameErrorLabel.isHidden = true
+            }
+        }
+        checkForValidForm()
+    }
+    
+    func checkForValidForm() {
+        if emailErrorLabel.isHidden && firstNameErrorLabel.isHidden && lastNameErrorLabel.isHidden && passwordErrorLabel.isHidden && confirmPasswordErrorLabel.isHidden
+        {
+            registerButton.isEnabled = true
+        }
+        else
+        {
+            registerButton.isEnabled = false
+        }
+    }
     
     @IBAction func uploadPictureButtonTapped(_ sender: Any) {
         
@@ -52,55 +164,28 @@ class SignUpViewController: UIViewController {
     @IBAction func registerButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty,
-        let imageData = imageData else {
-            print("Field Empty")
-            return
-        }
+              let imageData = imageData else {
+                  let alert = AlertService.createAlertController(title: "Error", message: "Please fill up all fields")
+                  self.present(alert, animated: true, completion: nil)
+                  return
+              }
         
-        let uuid = UUID().uuidString
+        let data: [String:String?] = [
+            "email": email,
+            "password": password,
+            "firstName": firstNameTextField.text,
+            "lastName": lastNameTextField.text
+        ]
         
-        
-        self.storage.child("images/\(uuid).png").putData(imageData, metadata: nil) { [weak self] _ , error in
-            guard error == nil else {
+        UserService.signUp(imageData: imageData, user: data) { error in
+            if let error = error {
+                let alert = AlertService.createAlertController(title: "Error", message: error.localizedDescription)
+                self.present(alert, animated: true, completion: nil)
                 return
             }
-            
-            print("Storing image")
-            
-            self?.storage.child("images/\(uuid).png").downloadURL(completion: { [weak self] url, error in
-                guard let url = url, error == nil else {
-                    print("Error: \(error)")
-                    return
-                }
-                print("Setting data")
-                
-                FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {
-                    [weak self] result, error in
-                    guard error == nil else {
-                        print("Failed to create")
-                        print(error!)
-                        return
-                    }
-                    
-                    guard let userID = Auth.auth().currentUser?.uid else { return }
-                    
-                    let data: [String:String?] = [
-                        "email": email,
-                        "firstName": self?.firstNameTextField.text,
-                        "lastName": self?.lastNameTextField.text,
-                        "profilePictureURL": url.absoluteString
-                    ]
-                    
-                    print("Data: \(data)")
-                    
-                    self?.ref.child("users").child(userID).setValue(data)
-                    
-                    print("Data set")
-                    
-                })
-            })
-            
         }
+        resetForm()
+        
     }
     
 }

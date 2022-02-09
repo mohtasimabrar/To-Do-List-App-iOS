@@ -29,16 +29,17 @@ class TaskViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let markAsDoneButton = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .done , target: self, action: #selector(markAsDone))
+        
+        let markAsDoneButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .done , target: self, action: #selector(markAsDone))
         let deleteTaskButton = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain , target: self, action: #selector(deleteTask))
-        let markAsUndoneButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain , target: self, action: #selector(markAsUndone))
-        let editTaskButton = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain , target: self, action: #selector(editTask))
+        let markAsUndoneButton = UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.backward"), style: .plain , target: self, action: #selector(markAsUndone))
+        let editTaskButton = UIBarButtonItem(image: UIImage(systemName: "highlighter"), style: .plain , target: self, action: #selector(editTask))
         
         if let task = task {
             if (task.isDone.elementsEqual("false")){
                 navigationItem.rightBarButtonItems = [markAsDoneButton,editTaskButton, deleteTaskButton]
             } else {
-                navigationItem.rightBarButtonItems = [markAsUndoneButton, editTaskButton, deleteTaskButton]
+                navigationItem.rightBarButtonItems = [markAsUndoneButton, deleteTaskButton]
             }
         }
         
@@ -48,11 +49,8 @@ class TaskViewController: UIViewController {
     @objc func editTask() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "editTask") as? EditTaskViewController {
             vc.task = self.task
-            navigationController?.present(vc, animated: true, completion: {
-                self.task = vc.task
-                self.viewConfiguration()
-            })
-            //present(vc, animated: true, completion: nil)
+            vc.editTaskDelegate = self
+            present(vc, animated: true, completion: nil)
             //navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -113,4 +111,12 @@ class TaskViewController: UIViewController {
         }
     }
     
+}
+
+
+extension TaskViewController: EditTaskDelegate {
+    func didDismissView(task: Task) {
+        self.task = task
+        self.viewConfiguration()
+    }
 }

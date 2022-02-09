@@ -28,6 +28,8 @@
 		1C81D18427B267E700AB2CD3 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81D18327B267E700AB2CD3 /* ForgotPasswordViewController.swift */; };
 		1C81D18627B2964000AB2CD3 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81D18527B2964000AB2CD3 /* AlertService.swift */; };
 		1C81D18827B29F1500AB2CD3 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81D18727B29F1500AB2CD3 /* EditTaskViewController.swift */; };
+		1C827D0E27B3AB9C00998256 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C827D0D27B3AB9C00998256 /* EditProfileViewController.swift */; };
+		1C827D1027B40A9300998256 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C827D0F27B40A9300998256 /* ValidationService.swift */; };
 		1C972E8D27ABBC54003BEA4E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C972E8C27ABBC54003BEA4E /* Task.swift */; };
 		1C972E9027ABC28D003BEA4E /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C972E8F27ABC28D003BEA4E /* TasksTableViewCell.swift */; };
 		1CE4672A27B0F86E00BEACC1 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE4672927B0F86E00BEACC1 /* UIImageViewExtensions.swift */; };
@@ -57,6 +59,8 @@
 		1C81D18327B267E700AB2CD3 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		1C81D18527B2964000AB2CD3 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		1C81D18727B29F1500AB2CD3 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
+		1C827D0D27B3AB9C00998256 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		1C827D0F27B40A9300998256 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		1C972E8C27ABBC54003BEA4E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		1C972E8F27ABC28D003BEA4E /* TasksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
 		1CE4672927B0F86E00BEACC1 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				1C80C2E327AD031900EECE18 /* UserService.swift */,
 				1C80C2EB27AD2E2000EECE18 /* TaskService.swift */,
 				1C81D18527B2964000AB2CD3 /* AlertService.swift */,
+				1C827D0F27B40A9300998256 /* ValidationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				1C09073627A96DBA00473C53 /* CreateNewTaskViewController.swift */,
 				1C80C2E927AD152300EECE18 /* TaskViewController.swift */,
 				1C81D18727B29F1500AB2CD3 /* EditTaskViewController.swift */,
+				1C827D0D27B3AB9C00998256 /* EditProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -335,8 +341,10 @@
 				1C80C2EF27AD6E8D00EECE18 /* DateExtensions.swift in Sources */,
 				1C81D18427B267E700AB2CD3 /* ForgotPasswordViewController.swift in Sources */,
 				1C972E8D27ABBC54003BEA4E /* Task.swift in Sources */,
+				1C827D1027B40A9300998256 /* ValidationService.swift in Sources */,
 				1CE4672A27B0F86E00BEACC1 /* UIImageViewExtensions.swift in Sources */,
 				1C81264827A80812008EFB68 /* HomeViewController.swift in Sources */,
+				1C827D0E27B3AB9C00998256 /* EditProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
