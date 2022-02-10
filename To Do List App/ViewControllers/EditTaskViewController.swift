@@ -51,7 +51,7 @@ class EditTaskViewController: UIViewController {
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        if let titleText = titleTextField.text,
+        if let titleText = titleTextField.text, !titleText.isEmpty,
            let detailsText = detailsTextField.text,
            let task = task
            {
@@ -61,6 +61,10 @@ class EditTaskViewController: UIViewController {
             
             editTaskDelegate.didDismissView(task: updatedTask)
             self.dismiss(animated: true, completion: nil)
+        } else {
+            let alert = AlertService.createAlertController(title: "Error", message: "Title cannot be empty")
+            self.present(alert, animated: true, completion: nil)
+            return
         }
         
     }

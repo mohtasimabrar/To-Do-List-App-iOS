@@ -59,15 +59,11 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func emailChanged(_ sender: Any) {
-        if let email = emailTextField.text
-        {
-            if let errorMessage = ValidationService.invalidEmail(email)
-            {
+        if let email = emailTextField.text {
+            if let errorMessage = ValidationService.invalidEmail(email) {
                 emailErrorLabel.text = errorMessage
                 emailErrorLabel.isHidden = false
-            }
-            else
-            {
+            } else {
                 emailErrorLabel.isHidden = true
             }
         }
@@ -76,15 +72,11 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func passwordChanged(_ sender: Any) {
-        if let password = passwordTextField.text
-        {
-            if let errorMessage = ValidationService.invalidPassword(password)
-            {
+        if let password = passwordTextField.text {
+            if let errorMessage = ValidationService.invalidPassword(password) {
                 passwordErrorLabel.text = errorMessage
                 passwordErrorLabel.isHidden = false
-            }
-            else
-            {
+            } else {
                 passwordErrorLabel.isHidden = true
             }
         }
@@ -109,15 +101,11 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func firstNameChanged(_ sender: Any) {
-        if let firstName = firstNameTextField.text
-        {
-            if let errorMessage = ValidationService.invalidName(firstName)
-            {
-                firstNameErrorLabel.text = "First " + errorMessage
+        if let firstName = firstNameTextField.text {
+            if let errorMessage = ValidationService.invalidLength(firstName) {
+                firstNameErrorLabel.text = "First Name" + errorMessage
                 firstNameErrorLabel.isHidden = false
-            }
-            else
-            {
+            } else {
                 firstNameErrorLabel.isHidden = true
             }
         }
@@ -125,15 +113,11 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func lastNameChanged(_ sender: Any) {
-        if let lastName = lastNameTextField.text
-        {
-            if let errorMessage = ValidationService.invalidName(lastName)
-            {
-                lastNameErrorLabel.text = "Last " + errorMessage
+        if let lastName = lastNameTextField.text {
+            if let errorMessage = ValidationService.invalidLength(lastName) {
+                lastNameErrorLabel.text = "Last Name" + errorMessage
                 lastNameErrorLabel.isHidden = false
-            }
-            else
-            {
+            } else {
                 lastNameErrorLabel.isHidden = true
             }
         }
@@ -141,12 +125,9 @@ class SignUpViewController: UIViewController {
     }
     
     func checkForValidForm() {
-        if emailErrorLabel.isHidden && firstNameErrorLabel.isHidden && lastNameErrorLabel.isHidden && passwordErrorLabel.isHidden && confirmPasswordErrorLabel.isHidden
-        {
+        if emailErrorLabel.isHidden && firstNameErrorLabel.isHidden && lastNameErrorLabel.isHidden && passwordErrorLabel.isHidden && confirmPasswordErrorLabel.isHidden {
             registerButton.isEnabled = true
-        }
-        else
-        {
+        } else {
             registerButton.isEnabled = false
         }
     }
@@ -163,8 +144,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func registerButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty,
-              let password = passwordTextField.text, !password.isEmpty,
-              let imageData = imageData else {
+              let password = passwordTextField.text, !password.isEmpty else {
                   let alert = AlertService.createAlertController(title: "Error", message: "Please fill up all fields")
                   self.present(alert, animated: true, completion: nil)
                   return

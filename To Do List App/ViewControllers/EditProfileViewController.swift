@@ -12,7 +12,6 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
     var imageData: Data?
     var user: UserProfile?
     
@@ -28,7 +27,7 @@ class EditProfileViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        profilePictureImageView.makeUploadPictureRounded()
+        profilePictureImageView.makeEditPictureRounded()
     }
     
     func initiateNavBar() {
@@ -50,7 +49,6 @@ class EditProfileViewController: UIViewController {
 
         firstNameTextField.text = user.firstName
         lastNameTextField.text = user.lastName
-        emailTextField.text = user.email
         profilePictureImageView.sd_setImage(with: URL(string: user.profilePictureURL), placeholderImage: UIImage(named: "defaultUserImage"), options: .continueInBackground, completed: nil)
         
     }
@@ -71,12 +69,12 @@ class EditProfileViewController: UIViewController {
     }
     @IBAction func updateButtonTapped(_ sender: Any) {
         
-        guard let email = emailTextField.text,
-              let firstName = firstNameTextField.text,
+        guard let firstName = firstNameTextField.text,
               let lastName = lastNameTextField.text,
               let userID = user?.uid,
+              let email = user?.email,
               let profilePictureURL = user?.profilePictureURL else {
-                  let alert = AlertService.createAlertController(title: "Error", message: "No fields can be empty")
+                  let alert = AlertService.createAlertController(title: "Error", message: "Fields cannot be empty")
                   self.present(alert, animated: true, completion: nil)
                   return
               }

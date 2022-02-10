@@ -63,11 +63,11 @@ class ValidationService {
     
     
     
-    static func invalidName(_ value: String) -> String?
+    static func invalidLength(_ value: String) -> String?
     {
         if value.count < 1
         {
-            return "Name cannot be empty"
+            return " cannot be empty"
         }
         return nil
     }

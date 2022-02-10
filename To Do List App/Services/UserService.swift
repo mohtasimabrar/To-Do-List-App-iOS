@@ -101,82 +101,121 @@ class UserService {
                     completionHandler(error)
                     return
                 }
-                guard let user = user else { return }
-                
-                let emailAddress = user.profile?.email
-                let givenName = user.profile?.givenName
-                let familyName = user.profile?.familyName
-                let profilePicUrl = user.profile?.imageURL(withDimension: 320)
-                guard let profilePicUrl = profilePicUrl?.absoluteString else {
-                    return
-                }
-
                 
                 guard let userID = Auth.auth().currentUser?.uid else { return }
                 
-                let data: [String:String] = [
-                    "email": emailAddress!,
-                    "firstName": givenName!,
-                    "lastName":familyName!,
-                    "profilePictureURL":profilePicUrl
-                ]
-                
-                self.ref.child("users").child(userID).setValue(data)
-                completionHandler(nil)
+                ref.child("users").child(userID).observeSingleEvent(of: .value) { snapshot in
+                    if snapshot.exists() {
+                        completionHandler(nil)
+                        return
+                    } else {
+                        guard let user = user else { return }
+                        
+                        let emailAddress = user.profile?.email
+                        let givenName = user.profile?.givenName
+                        let familyName = user.profile?.familyName
+                        let profilePicUrl = user.profile?.imageURL(withDimension: 320)
+                        guard let profilePicUrl = profilePicUrl?.absoluteString else {
+                            return
+                        }
+
+                        
+                        let data: [String:String] = [
+                            "email": emailAddress ?? "",
+                            "firstName": givenName ?? "",
+                            "lastName":familyName ?? "",
+                            "profilePictureURL":profilePicUrl
+                        ]
+                        
+                        self.ref.child("users").child(userID).setValue(data)
+                        completionHandler(nil)
+                    }
+                }
             }
         }
     }
     
     
-    static func signUp(imageData: Data, user: [String:String?], completionHandler: @escaping ((_ error: Error?)->())) {
-        
-        let uuid = UUID().uuidString
-        
-        self.storage.child("images/\(uuid).png").putData(imageData, metadata: nil) { _ , error in
-            guard error == nil else {
-                completionHandler(error)
-                return
-            }
+    static func signUp(imageData: Data?, user: [String:String?], completionHandler: @escaping ((_ error: Error?)->())) {
+        if let imageData = imageData {
+            let uuid = UUID().uuidString
             
-            
-            self.storage.child("images/\(uuid).png").downloadURL(completion: { url, error in
-                guard let url = url, error == nil else {
+            self.storage.child("images/\(uuid).png").putData(imageData, metadata: nil) { _ , error in
+                guard error == nil else {
                     completionHandler(error)
                     return
                 }
                 
-                guard let email = user["email"],
-                      let password = user["password"],
-                      let firstName = user["firstName"],
-                      let lastName = user["lastName"] else {
-                          return
-                      }
                 
-                FirebaseAuth.Auth.auth().createUser(withEmail: email!, password: password!, completion: {
-                    result, error in
-                    guard error == nil else {
+                self.storage.child("images/\(uuid).png").downloadURL(completion: { url, error in
+                    guard let url = url, error == nil else {
                         completionHandler(error)
                         return
                     }
                     
-                    guard let userID = Auth.auth().currentUser?.uid else { return }
+                    guard let email = user["email"],
+                          let password = user["password"],
+                          let firstName = user["firstName"],
+                          let lastName = user["lastName"] else {
+                              return
+                          }
                     
-                    let data: [String:String?] = [
-                        "email": email,
-                        "firstName": firstName,
-                        "lastName": lastName,
-                        "profilePictureURL": url.absoluteString
-                    ]
-                    
-                    
-                    self.ref.child("users").child(userID).setValue(data)
-                    
-                    completionHandler(nil)
-                    
+                    FirebaseAuth.Auth.auth().createUser(withEmail: email ?? "", password: password ?? "", completion: {
+                        result, error in
+                        guard error == nil else {
+                            completionHandler(error)
+                            return
+                        }
+                        
+                        guard let userID = Auth.auth().currentUser?.uid else { return }
+                        
+                        let data: [String:String?] = [
+                            "email": email,
+                            "firstName": firstName,
+                            "lastName": lastName,
+                            "profilePictureURL": url.absoluteString
+                        ]
+                        
+                        
+                        self.ref.child("users").child(userID).setValue(data)
+                        
+                        completionHandler(nil)
+                        
+                    })
                 })
+                
+            }
+        } else {
+            guard let email = user["email"],
+                  let password = user["password"],
+                  let firstName = user["firstName"],
+                  let lastName = user["lastName"] else {
+                      return
+                  }
+            FirebaseAuth.Auth.auth().createUser(withEmail: email ?? "", password: password ?? "", completion: {
+                result, error in
+                guard error == nil else {
+                    completionHandler(error)
+                    return
+                }
+                
+                guard let userID = Auth.auth().currentUser?.uid else { return }
+                
+                let data: [String:String?] = [
+                    "email": email,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "profilePictureURL": ""
+                ]
+                
+                
+                self.ref.child("users").child(userID).setValue(data)
+                
+                completionHandler(nil)
+                
             })
-            
         }
+        
     }
     
     

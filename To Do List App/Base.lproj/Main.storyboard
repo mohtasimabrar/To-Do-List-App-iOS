@@ -982,7 +982,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="3wR-N6-hOv">
-                                <rect key="frame" x="20.5" y="181.5" width="373" height="543"/>
+                                <rect key="frame" x="20.5" y="210.5" width="373" height="485"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXR-YO-srp">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="57.5"/>
@@ -1010,10 +1010,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Be7-lj-nhM">
-                                        <rect key="frame" x="0.0" y="319" width="373" height="224"/>
+                                        <rect key="frame" x="0.0" y="319" width="373" height="166"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Lkm-8L-81h">
-                                                <rect key="frame" x="0.0" y="0.0" width="373" height="224"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="166"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0S4-zv-RL5">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
@@ -1028,13 +1028,8 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="family-name"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTh-sZ-L7y">
-                                                        <rect key="frame" x="0.0" y="116" width="373" height="50"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
-                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owp-HF-vhd">
-                                                        <rect key="frame" x="0.0" y="174" width="373" height="50"/>
+                                                        <rect key="frame" x="0.0" y="116" width="373" height="50"/>
                                                         <color key="tintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Update">
@@ -1048,7 +1043,6 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="FTh-sZ-L7y" firstAttribute="height" secondItem="p76-4s-wo2" secondAttribute="height" id="Ppi-2E-3Jb"/>
                                                     <constraint firstItem="p76-4s-wo2" firstAttribute="height" secondItem="0S4-zv-RL5" secondAttribute="height" id="yC5-7H-S7C"/>
                                                 </constraints>
                                             </stackView>
@@ -1075,7 +1069,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="1vD-tQ-gKC"/>
                     <connections>
-                        <outlet property="emailTextField" destination="FTh-sZ-L7y" id="bKl-bC-vb5"/>
                         <outlet property="firstNameTextField" destination="0S4-zv-RL5" id="JGS-kd-tUQ"/>
                         <outlet property="lastNameTextField" destination="p76-4s-wo2" id="ltj-3h-4O7"/>
                         <outlet property="profilePictureImageView" destination="kDf-Vu-qnp" id="lCg-ZW-SkA"/>
