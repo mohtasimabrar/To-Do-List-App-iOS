@@ -119,7 +119,7 @@
                                                             <action selector="googleSignInButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H1l-Pe-GkD"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkV-IY-UWz">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkV-IY-UWz" customClass="FBSDKLoginButton" customModule="To_Do_List_App" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="59.5" width="373" height="51"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="0.16537490490000001" green="0.32615354660000001" blue="0.42052525280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -155,6 +155,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5JI-6S-3cJ"/>
                     <connections>
+                        <outlet property="FacebookLoginButton" destination="wkV-IY-UWz" id="Tyy-ZU-0ZS"/>
                         <outlet property="emailField" destination="GxO-GS-MEf" id="Wbo-3s-QKg"/>
                         <outlet property="passwordField" destination="EhE-WP-pbp" id="xxy-ur-e3b"/>
                         <outlet property="signInButton" destination="LZA-D9-0Wf" id="WJC-0I-K2O"/>
