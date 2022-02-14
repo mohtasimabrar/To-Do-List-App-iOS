@@ -17,6 +17,9 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initializeHideKeyboard()
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
 
     }
     
@@ -58,7 +61,6 @@ class EditProfileViewController: UIViewController {
     }
 
     @IBAction func uploadPictureButtonTapped(_ sender: Any) {
-        
         
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary

@@ -19,23 +19,26 @@ class CreateNewTaskViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
                 
         title = "Create New Task"
+        self.initializeHideKeyboard()
         
+        titleTextField.delegate = self
+        detailsTextField.delegate = self
         
     }
     
     @IBAction func saveTaskButtonTapped(_ sender: Any) {
-        if let titleText = titleTextField.text, !titleText.isEmpty,
-           let detailsText = detailsTextField.text {
-            TaskService.createNewTask(title: titleText, details: detailsText)
-        } else {
-            let alert = AlertService.createAlertController(title: "Error", message: "Title cannot be empty")
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
         
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
-        }
+        guard let titleText = titleTextField.text, !titleText.isEmpty,
+              let detailsText = detailsTextField.text,
+              let navController = self.navigationController else {
+                   let alert = AlertService.createAlertController(title: "Error", message: "Title cannot be empty")
+                   self.present(alert, animated: true, completion: nil)
+                   return
+              }
+        
+        TaskService.createNewTask(title: titleText, details: detailsText)
+        navController.popViewController(animated: true)
+        
     }
 }
 

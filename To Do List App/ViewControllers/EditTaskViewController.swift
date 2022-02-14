@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol EditTaskDelegate {
+protocol EditTaskDelegate: AnyObject {
     func didDismissView (task: Task)
 }
 
@@ -17,10 +17,13 @@ class EditTaskViewController: UIViewController {
     
     var task:Task?
     
-    var editTaskDelegate: EditTaskDelegate!
+    weak var editTaskDelegate: EditTaskDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initializeHideKeyboard()
+        titleTextField.delegate = self
+        detailsTextField.delegate = self
         
         initiateNavBar()
         loadViewData()
@@ -51,21 +54,21 @@ class EditTaskViewController: UIViewController {
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        if let titleText = titleTextField.text, !titleText.isEmpty,
-           let detailsText = detailsTextField.text,
-           let task = task
-           {
-            let updatedTask = Task(id: task.id, title: titleText, task: detailsText, isDone: "false", time: Date.getCurrentTime(), date: Date.getCurrentDate())
+        
+        guard let titleText = titleTextField.text, !titleText.isEmpty,
+              let detailsText = detailsTextField.text, let task = task,
+              let editTaskDelegate = editTaskDelegate else {
+                  let alert = AlertService.createAlertController(title: "Error", message: "Title cannot be empty")
+                  self.present(alert, animated: true, completion: nil)
+                  return
+              }
+        
+        let updatedTask = Task(id: task.id, title: titleText, task: detailsText, isDone: "false", time: Date.getCurrentTime(), date: Date.getCurrentDate())
             
-            TaskService.saveTask(task: updatedTask)
-            
-            editTaskDelegate.didDismissView(task: updatedTask)
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            let alert = AlertService.createAlertController(title: "Error", message: "Title cannot be empty")
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
+        TaskService.saveTask(task: updatedTask)
+        
+        editTaskDelegate.didDismissView(task: updatedTask)
+        self.dismiss(animated: true, completion: nil)
         
     }
     

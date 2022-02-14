@@ -30,6 +30,14 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         title = "Register"
         resetForm()
+        self.initializeHideKeyboard()
+        passwordTextField.textContentType = .oneTimeCode
+        confirmPasswordTextField.textContentType = .oneTimeCode
+        
+        [firstNameTextField, lastNameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach{ $0?.delegate = self }
+        
+        makeStatusBarWhite()
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -39,24 +47,14 @@ class SignUpViewController: UIViewController {
     
     func resetForm() {
         registerButton.isEnabled = false
+        
+        [emailErrorLabel, firstNameErrorLabel, lastNameErrorLabel, passwordErrorLabel, confirmPasswordErrorLabel].forEach{
+            $0?.isHidden = false
+            $0?.text = "Required"
+        }
+                
+        [firstNameTextField, lastNameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach{ $0?.text = "" }
             
-        emailErrorLabel.isHidden = false
-        firstNameErrorLabel.isHidden = false
-        lastNameErrorLabel.isHidden = false
-        passwordErrorLabel.isHidden = false
-        confirmPasswordErrorLabel.isHidden = false
-            
-        emailErrorLabel.text = "Required"
-        firstNameErrorLabel.text = "Required"
-        lastNameErrorLabel.text = "Required"
-        passwordErrorLabel.text = "Required"
-        confirmPasswordErrorLabel.text = "Required"
-            
-        firstNameTextField.text = ""
-        lastNameTextField.text = ""
-        emailTextField.text = ""
-        passwordTextField.text = ""
-        confirmPasswordTextField.text = ""
     }
     
     @IBAction func emailChanged(_ sender: Any) {
@@ -167,6 +165,20 @@ class SignUpViewController: UIViewController {
         }
         resetForm()
         
+    }
+    
+    func makeStatusBarWhite() {
+        if #available(iOS 13, *) {
+            let keyWindow = UIApplication.shared.connectedScenes
+                .filter({$0.activationState == .foregroundActive})
+                .map({$0 as? UIWindowScene})
+                .compactMap({$0})
+                .first?.windows
+                .filter({$0.isKeyWindow}).first
+            let statusBar = UIView(frame: (keyWindow?.windowScene?.statusBarManager?.statusBarFrame)!)
+            statusBar.backgroundColor = .white
+            keyWindow?.addSubview(statusBar)
+        }
     }
     
 }

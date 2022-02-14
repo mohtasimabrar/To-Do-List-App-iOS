@@ -17,6 +17,10 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initializeHideKeyboard()
+        
+        emailField.delegate = self
+        passwordField.delegate = self
     }
     
     @IBAction func googleSignInButtonTapped(_ sender: Any) {
@@ -48,3 +52,7 @@ class SignInViewController: UIViewController {
     }
     
 }
+
+
+
+
