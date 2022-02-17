@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let stackViewAppearance = UIStackView.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         stackViewAppearance.spacing = -8
         
-        IQKeyboardManager.shared.enable = true
+//        IQKeyboardManager.shared.enable = true
         
         return true
     }
