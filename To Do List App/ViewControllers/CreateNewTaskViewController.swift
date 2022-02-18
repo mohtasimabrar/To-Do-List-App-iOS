@@ -13,6 +13,7 @@ class CreateNewTaskViewController: UIViewController {
     @IBOutlet weak var detailsTextView: UITextView!
     @IBOutlet weak var backgroundSV: UIScrollView!
     
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,12 @@ extension CreateNewTaskViewController {
             scrollView.contentInset.bottom = keyboardOverlap
             //scrollView.scrollIndicatorInsets.bottom = keyboardOverlap
             scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
+            
+            if (keyboardOverlap != 0) {
+                scrollViewBottomConstraint.constant = keyboardOverlap
+            } else {
+                scrollViewBottomConstraint.constant = 40
+            }
             
             let duration = (durationValue as AnyObject).doubleValue
             let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))

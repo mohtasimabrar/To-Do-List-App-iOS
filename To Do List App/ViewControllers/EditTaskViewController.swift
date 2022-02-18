@@ -15,6 +15,7 @@ class EditTaskViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var detailsTextView: UITextView!
     @IBOutlet weak var backgroundSV: UIScrollView!
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     
     var task:Task?
     
@@ -108,12 +109,18 @@ extension EditTaskViewController {
             let endRect = view.convert((endValue as AnyObject).cgRectValue, from: view.window)
             
             // Find out how much the keyboard overlaps our scroll view
-            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y + 10
+            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
             
             // Set the scroll view's content inset & scroll indicator to avoid the keyboard
-            scrollView.contentInset.bottom = keyboardOverlap
+            scrollView.contentInset.bottom = keyboardOverlap + 10
             //scrollView.scrollIndicatorInsets.bottom = keyboardOverlap
             scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
+            
+            if (keyboardOverlap != 0) {
+                scrollViewBottomConstraint.constant = keyboardOverlap
+            } else {
+                scrollViewBottomConstraint.constant = 40
+            }
             
             let duration = (durationValue as AnyObject).doubleValue
             let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))
