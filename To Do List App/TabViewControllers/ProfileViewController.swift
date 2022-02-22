@@ -25,13 +25,22 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        self.userImageView.makeRounded()
+        super.viewDidLayoutSubviews()
+        makePictureRounded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         self.fetchUserData()
+    }
+    
+    func makePictureRounded() {
+        userImageView.layer.borderWidth = 4
+        userImageView.layer.masksToBounds = false
+        userImageView.layer.borderColor = CGColor(red: 21/255.0, green: 76/255.0, blue: 121/255.0, alpha: 1)
+        userImageView.layer.cornerRadius = userImageView.frame.height / 2
+        userImageView.clipsToBounds = true
     }
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {

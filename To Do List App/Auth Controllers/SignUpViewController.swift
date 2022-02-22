@@ -53,7 +53,16 @@ class SignUpViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        profilePictureImageView.makeUploadPictureRounded()
+        makeUploadPictureRounded()
+    }
+    
+    func makeUploadPictureRounded() {
+        let screenSize: CGRect = UIScreen.main.bounds
+        profilePictureImageView.layer.borderWidth = 4
+        profilePictureImageView.layer.masksToBounds = false
+        profilePictureImageView.layer.borderColor = CGColor(red: 21/255.0, green: 76/255.0, blue: 121/255.0, alpha: 1)
+        profilePictureImageView.layer.cornerRadius = (screenSize.width * 0.4) / 2
+        profilePictureImageView.clipsToBounds = true
     }
     
     func resetForm() {
